@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="13b0752d51364561a3b326ba94ae6557" Name="Diagram1">
+        <EntityTypeShape EntityType="sistemaacademicobdModel.administrador" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.alumno" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.alumno_curso" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.calificacion" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.curso" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.docente" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.docente_curso" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.horario" Width="1.5" PointX="6" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.matricula" Width="1.5" PointX="10.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.seccion" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.tipo_nota" Width="1.5" PointX="3.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.tipo_usuario" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistemaacademicobdModel.usuario" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
+        <AssociationConnector Association="sistemaacademicobdModel.administrador_tipo_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.alumno_curso_alumno" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.alumno_matricula" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.alumno_tipo_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.alumno_curso_calificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.alumno_curso_curso" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.calificacion_tipo_nota" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.docente_curso_curso" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.seccion_curso" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.docente_curso_docente" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.docente_tipo_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.seccion_docente" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.seccion_horario" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.matricula_seccion" ManuallyRouted="false" />
+        <AssociationConnector Association="sistemaacademicobdModel.usuario_tipo" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

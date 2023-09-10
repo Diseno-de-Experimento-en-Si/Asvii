@@ -1,0 +1,922 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="sistemaacademicobdModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="tipo_usuario_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alumno">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="contrasenia" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="matricula_id" Type="int" Nullable="false" />
+          <Property Name="tipo_usuario_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alumno_curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="alumno_id" Type="int" Nullable="false" />
+          <Property Name="curso_id" Type="int" Nullable="false" />
+          <Property Name="calificacion_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="calificacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nota" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="tipo_nota_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre_curso" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="docente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipo_usuario_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="docente_curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="docente_id" Type="int" Nullable="false" />
+          <Property Name="curso_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="dia" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="hora" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="matricula">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="seccion_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="seccion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre_seccion" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="docente_id" Type="int" Nullable="false" />
+          <Property Name="curso_id" Type="int" Nullable="false" />
+          <Property Name="horario_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_nota">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="contrasenia" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="tipo_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="administrador_tipo_usuario">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="administrador" Type="Self.administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="administrador">
+              <PropertyRef Name="tipo_usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_curso_alumno">
+          <End Role="alumno" Type="Self.alumno" Multiplicity="1" />
+          <End Role="alumno_curso" Type="Self.alumno_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alumno">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno_curso">
+              <PropertyRef Name="alumno_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_curso_calificacion">
+          <End Role="calificacion" Type="Self.calificacion" Multiplicity="1" />
+          <End Role="alumno_curso" Type="Self.alumno_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="calificacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno_curso">
+              <PropertyRef Name="calificacion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_curso_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="alumno_curso" Type="Self.alumno_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno_curso">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_matricula">
+          <End Role="matricula" Type="Self.matricula" Multiplicity="1" />
+          <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="matricula">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno">
+              <PropertyRef Name="matricula_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_tipo_usuario">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno">
+              <PropertyRef Name="tipo_usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="calificacion_tipo_nota">
+          <End Role="tipo_nota" Type="Self.tipo_nota" Multiplicity="1" />
+          <End Role="calificacion" Type="Self.calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_nota">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="calificacion">
+              <PropertyRef Name="tipo_nota_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="docente_curso_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="docente_curso" Type="Self.docente_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="docente_curso">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="docente_curso_docente">
+          <End Role="docente" Type="Self.docente" Multiplicity="1" />
+          <End Role="docente_curso" Type="Self.docente_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="docente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="docente_curso">
+              <PropertyRef Name="docente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="docente_tipo_usuario">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="docente" Type="Self.docente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="docente">
+              <PropertyRef Name="tipo_usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="matricula_seccion">
+          <End Role="seccion" Type="Self.seccion" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="seccion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="seccion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="seccion_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="seccion" Type="Self.seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seccion">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="seccion_docente">
+          <End Role="docente" Type="Self.docente" Multiplicity="1" />
+          <End Role="seccion" Type="Self.seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="docente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seccion">
+              <PropertyRef Name="docente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="seccion_horario">
+          <End Role="horario" Type="Self.horario" Multiplicity="1" />
+          <End Role="seccion" Type="Self.seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seccion">
+              <PropertyRef Name="horario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_tipo">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sistemaacademicobdModelStoreContainer">
+          <EntitySet Name="administrador" EntityType="Self.administrador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="alumno" EntityType="Self.alumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="alumno_curso" EntityType="Self.alumno_curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="calificacion" EntityType="Self.calificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="curso" EntityType="Self.curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="docente" EntityType="Self.docente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="docente_curso" EntityType="Self.docente_curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="horario" EntityType="Self.horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="matricula" EntityType="Self.matricula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="seccion" EntityType="Self.seccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipo_nota" EntityType="Self.tipo_nota" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipo_usuario" EntityType="Self.tipo_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="administrador_tipo_usuario" Association="Self.administrador_tipo_usuario">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="administrador" EntitySet="administrador" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_curso_alumno" Association="Self.alumno_curso_alumno">
+            <End Role="alumno" EntitySet="alumno" />
+            <End Role="alumno_curso" EntitySet="alumno_curso" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_curso_calificacion" Association="Self.alumno_curso_calificacion">
+            <End Role="calificacion" EntitySet="calificacion" />
+            <End Role="alumno_curso" EntitySet="alumno_curso" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_curso_curso" Association="Self.alumno_curso_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="alumno_curso" EntitySet="alumno_curso" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_matricula" Association="Self.alumno_matricula">
+            <End Role="matricula" EntitySet="matricula" />
+            <End Role="alumno" EntitySet="alumno" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_tipo_usuario" Association="Self.alumno_tipo_usuario">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="alumno" EntitySet="alumno" />
+          </AssociationSet>
+          <AssociationSet Name="calificacion_tipo_nota" Association="Self.calificacion_tipo_nota">
+            <End Role="tipo_nota" EntitySet="tipo_nota" />
+            <End Role="calificacion" EntitySet="calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="docente_curso_curso" Association="Self.docente_curso_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="docente_curso" EntitySet="docente_curso" />
+          </AssociationSet>
+          <AssociationSet Name="docente_curso_docente" Association="Self.docente_curso_docente">
+            <End Role="docente" EntitySet="docente" />
+            <End Role="docente_curso" EntitySet="docente_curso" />
+          </AssociationSet>
+          <AssociationSet Name="docente_tipo_usuario" Association="Self.docente_tipo_usuario">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="docente" EntitySet="docente" />
+          </AssociationSet>
+          <AssociationSet Name="matricula_seccion" Association="Self.matricula_seccion">
+            <End Role="seccion" EntitySet="seccion" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+          <AssociationSet Name="seccion_curso" Association="Self.seccion_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="seccion" EntitySet="seccion" />
+          </AssociationSet>
+          <AssociationSet Name="seccion_docente" Association="Self.seccion_docente">
+            <End Role="docente" EntitySet="docente" />
+            <End Role="seccion" EntitySet="seccion" />
+          </AssociationSet>
+          <AssociationSet Name="seccion_horario" Association="Self.seccion_horario">
+            <End Role="horario" EntitySet="horario" />
+            <End Role="seccion" EntitySet="seccion" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_tipo" Association="Self.usuario_tipo">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sistemaacademicobdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administrador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo_usuario_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tipo_usuario" Relationship="Self.administrador_tipo_usuario" FromRole="administrador" ToRole="tipo_usuario" />
+        </EntityType>
+        <EntityType Name="alumno">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasenia" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="matricula_id" Type="Int32" Nullable="false" />
+          <Property Name="tipo_usuario_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="alumno_curso" Relationship="Self.alumno_curso_alumno" FromRole="alumno" ToRole="alumno_curso" />
+          <NavigationProperty Name="matricula" Relationship="Self.alumno_matricula" FromRole="alumno" ToRole="matricula" />
+          <NavigationProperty Name="tipo_usuario" Relationship="Self.alumno_tipo_usuario" FromRole="alumno" ToRole="tipo_usuario" />
+        </EntityType>
+        <EntityType Name="alumno_curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="alumno_id" Type="Int32" Nullable="false" />
+          <Property Name="curso_id" Type="Int32" Nullable="false" />
+          <Property Name="calificacion_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="alumno" Relationship="Self.alumno_curso_alumno" FromRole="alumno_curso" ToRole="alumno" />
+          <NavigationProperty Name="calificacion" Relationship="Self.alumno_curso_calificacion" FromRole="alumno_curso" ToRole="calificacion" />
+          <NavigationProperty Name="curso" Relationship="Self.alumno_curso_curso" FromRole="alumno_curso" ToRole="curso" />
+        </EntityType>
+        <EntityType Name="calificacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nota" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="tipo_nota_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="alumno_curso" Relationship="Self.alumno_curso_calificacion" FromRole="calificacion" ToRole="alumno_curso" />
+          <NavigationProperty Name="tipo_nota" Relationship="Self.calificacion_tipo_nota" FromRole="calificacion" ToRole="tipo_nota" />
+        </EntityType>
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre_curso" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="alumno_curso" Relationship="Self.alumno_curso_curso" FromRole="curso" ToRole="alumno_curso" />
+          <NavigationProperty Name="docente_curso" Relationship="Self.docente_curso_curso" FromRole="curso" ToRole="docente_curso" />
+          <NavigationProperty Name="seccion" Relationship="Self.seccion_curso" FromRole="curso" ToRole="seccion" />
+        </EntityType>
+        <EntityType Name="docente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo_usuario_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="docente_curso" Relationship="Self.docente_curso_docente" FromRole="docente" ToRole="docente_curso" />
+          <NavigationProperty Name="tipo_usuario" Relationship="Self.docente_tipo_usuario" FromRole="docente" ToRole="tipo_usuario" />
+          <NavigationProperty Name="seccion" Relationship="Self.seccion_docente" FromRole="docente" ToRole="seccion" />
+        </EntityType>
+        <EntityType Name="docente_curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="docente_id" Type="Int32" Nullable="false" />
+          <Property Name="curso_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="curso" Relationship="Self.docente_curso_curso" FromRole="docente_curso" ToRole="curso" />
+          <NavigationProperty Name="docente" Relationship="Self.docente_curso_docente" FromRole="docente_curso" ToRole="docente" />
+        </EntityType>
+        <EntityType Name="horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="dia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hora" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="seccion" Relationship="Self.seccion_horario" FromRole="horario" ToRole="seccion" />
+        </EntityType>
+        <EntityType Name="matricula">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="seccion_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="alumno" Relationship="Self.alumno_matricula" FromRole="matricula" ToRole="alumno" />
+          <NavigationProperty Name="seccion" Relationship="Self.matricula_seccion" FromRole="matricula" ToRole="seccion" />
+        </EntityType>
+        <EntityType Name="seccion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre_seccion" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="docente_id" Type="Int32" Nullable="false" />
+          <Property Name="curso_id" Type="Int32" Nullable="false" />
+          <Property Name="horario_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="curso" Relationship="Self.seccion_curso" FromRole="seccion" ToRole="curso" />
+          <NavigationProperty Name="docente" Relationship="Self.seccion_docente" FromRole="seccion" ToRole="docente" />
+          <NavigationProperty Name="horario" Relationship="Self.seccion_horario" FromRole="seccion" ToRole="horario" />
+          <NavigationProperty Name="matricula" Relationship="Self.matricula_seccion" FromRole="seccion" ToRole="matricula" />
+        </EntityType>
+        <EntityType Name="tipo_nota">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="calificacion" Relationship="Self.calificacion_tipo_nota" FromRole="tipo_nota" ToRole="calificacion" />
+        </EntityType>
+        <EntityType Name="tipo_usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="administrador" Relationship="Self.administrador_tipo_usuario" FromRole="tipo_usuario" ToRole="administrador" />
+          <NavigationProperty Name="alumno" Relationship="Self.alumno_tipo_usuario" FromRole="tipo_usuario" ToRole="alumno" />
+          <NavigationProperty Name="docente" Relationship="Self.docente_tipo_usuario" FromRole="tipo_usuario" ToRole="docente" />
+          <NavigationProperty Name="usuario" Relationship="Self.usuario_tipo" FromRole="tipo_usuario" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="usuario1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasenia" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tipo_usuario" Relationship="Self.usuario_tipo" FromRole="usuario" ToRole="tipo_usuario" />
+        </EntityType>
+        <Association Name="administrador_tipo_usuario">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="administrador" Type="Self.administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="administrador">
+              <PropertyRef Name="tipo_usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_curso_alumno">
+          <End Role="alumno" Type="Self.alumno" Multiplicity="1" />
+          <End Role="alumno_curso" Type="Self.alumno_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alumno">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno_curso">
+              <PropertyRef Name="alumno_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_matricula">
+          <End Role="matricula" Type="Self.matricula" Multiplicity="1" />
+          <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="matricula">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno">
+              <PropertyRef Name="matricula_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_tipo_usuario">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno">
+              <PropertyRef Name="tipo_usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_curso_calificacion">
+          <End Role="calificacion" Type="Self.calificacion" Multiplicity="1" />
+          <End Role="alumno_curso" Type="Self.alumno_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="calificacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno_curso">
+              <PropertyRef Name="calificacion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="alumno_curso_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="alumno_curso" Type="Self.alumno_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alumno_curso">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="calificacion_tipo_nota">
+          <End Role="tipo_nota" Type="Self.tipo_nota" Multiplicity="1" />
+          <End Role="calificacion" Type="Self.calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_nota">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="calificacion">
+              <PropertyRef Name="tipo_nota_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="docente_curso_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="docente_curso" Type="Self.docente_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="docente_curso">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="seccion_curso">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="seccion" Type="Self.seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seccion">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="docente_curso_docente">
+          <End Role="docente" Type="Self.docente" Multiplicity="1" />
+          <End Role="docente_curso" Type="Self.docente_curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="docente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="docente_curso">
+              <PropertyRef Name="docente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="docente_tipo_usuario">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="docente" Type="Self.docente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="docente">
+              <PropertyRef Name="tipo_usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="seccion_docente">
+          <End Role="docente" Type="Self.docente" Multiplicity="1" />
+          <End Role="seccion" Type="Self.seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="docente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seccion">
+              <PropertyRef Name="docente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="seccion_horario">
+          <End Role="horario" Type="Self.horario" Multiplicity="1" />
+          <End Role="seccion" Type="Self.seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seccion">
+              <PropertyRef Name="horario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="matricula_seccion">
+          <End Role="seccion" Type="Self.seccion" Multiplicity="1" />
+          <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="seccion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="matricula">
+              <PropertyRef Name="seccion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_tipo">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sistemaacademicobdEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administrador" EntityType="Self.administrador" />
+          <EntitySet Name="alumno" EntityType="Self.alumno" />
+          <EntitySet Name="alumno_curso" EntityType="Self.alumno_curso" />
+          <EntitySet Name="calificacion" EntityType="Self.calificacion" />
+          <EntitySet Name="curso" EntityType="Self.curso" />
+          <EntitySet Name="docente" EntityType="Self.docente" />
+          <EntitySet Name="docente_curso" EntityType="Self.docente_curso" />
+          <EntitySet Name="horario" EntityType="Self.horario" />
+          <EntitySet Name="matricula" EntityType="Self.matricula" />
+          <EntitySet Name="seccion" EntityType="Self.seccion" />
+          <EntitySet Name="tipo_nota" EntityType="Self.tipo_nota" />
+          <EntitySet Name="tipo_usuario" EntityType="Self.tipo_usuario" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <AssociationSet Name="administrador_tipo_usuario" Association="Self.administrador_tipo_usuario">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="administrador" EntitySet="administrador" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_curso_alumno" Association="Self.alumno_curso_alumno">
+            <End Role="alumno" EntitySet="alumno" />
+            <End Role="alumno_curso" EntitySet="alumno_curso" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_matricula" Association="Self.alumno_matricula">
+            <End Role="matricula" EntitySet="matricula" />
+            <End Role="alumno" EntitySet="alumno" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_tipo_usuario" Association="Self.alumno_tipo_usuario">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="alumno" EntitySet="alumno" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_curso_calificacion" Association="Self.alumno_curso_calificacion">
+            <End Role="calificacion" EntitySet="calificacion" />
+            <End Role="alumno_curso" EntitySet="alumno_curso" />
+          </AssociationSet>
+          <AssociationSet Name="alumno_curso_curso" Association="Self.alumno_curso_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="alumno_curso" EntitySet="alumno_curso" />
+          </AssociationSet>
+          <AssociationSet Name="calificacion_tipo_nota" Association="Self.calificacion_tipo_nota">
+            <End Role="tipo_nota" EntitySet="tipo_nota" />
+            <End Role="calificacion" EntitySet="calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="docente_curso_curso" Association="Self.docente_curso_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="docente_curso" EntitySet="docente_curso" />
+          </AssociationSet>
+          <AssociationSet Name="seccion_curso" Association="Self.seccion_curso">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="seccion" EntitySet="seccion" />
+          </AssociationSet>
+          <AssociationSet Name="docente_curso_docente" Association="Self.docente_curso_docente">
+            <End Role="docente" EntitySet="docente" />
+            <End Role="docente_curso" EntitySet="docente_curso" />
+          </AssociationSet>
+          <AssociationSet Name="docente_tipo_usuario" Association="Self.docente_tipo_usuario">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="docente" EntitySet="docente" />
+          </AssociationSet>
+          <AssociationSet Name="seccion_docente" Association="Self.seccion_docente">
+            <End Role="docente" EntitySet="docente" />
+            <End Role="seccion" EntitySet="seccion" />
+          </AssociationSet>
+          <AssociationSet Name="seccion_horario" Association="Self.seccion_horario">
+            <End Role="horario" EntitySet="horario" />
+            <End Role="seccion" EntitySet="seccion" />
+          </AssociationSet>
+          <AssociationSet Name="matricula_seccion" Association="Self.matricula_seccion">
+            <End Role="seccion" EntitySet="seccion" />
+            <End Role="matricula" EntitySet="matricula" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_tipo" Association="Self.usuario_tipo">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sistemaacademicobdModelStoreContainer" CdmEntityContainer="sistemaacademicobdEntities1">
+          <EntitySetMapping Name="administrador">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.administrador">
+              <MappingFragment StoreEntitySet="administrador">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="tipo_usuario_id" ColumnName="tipo_usuario_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alumno">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.alumno">
+              <MappingFragment StoreEntitySet="alumno">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="contrasenia" ColumnName="contrasenia" />
+                <ScalarProperty Name="matricula_id" ColumnName="matricula_id" />
+                <ScalarProperty Name="tipo_usuario_id" ColumnName="tipo_usuario_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alumno_curso">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.alumno_curso">
+              <MappingFragment StoreEntitySet="alumno_curso">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="alumno_id" ColumnName="alumno_id" />
+                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+                <ScalarProperty Name="calificacion_id" ColumnName="calificacion_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="calificacion">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.calificacion">
+              <MappingFragment StoreEntitySet="calificacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="tipo_nota_id" ColumnName="tipo_nota_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="curso">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.curso">
+              <MappingFragment StoreEntitySet="curso">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_curso" ColumnName="nombre_curso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="docente">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.docente">
+              <MappingFragment StoreEntitySet="docente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="tipo_usuario_id" ColumnName="tipo_usuario_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="docente_curso">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.docente_curso">
+              <MappingFragment StoreEntitySet="docente_curso">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="docente_id" ColumnName="docente_id" />
+                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horario">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.horario">
+              <MappingFragment StoreEntitySet="horario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dia" ColumnName="dia" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="matricula">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.matricula">
+              <MappingFragment StoreEntitySet="matricula">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="seccion_id" ColumnName="seccion_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seccion">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.seccion">
+              <MappingFragment StoreEntitySet="seccion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_seccion" ColumnName="nombre_seccion" />
+                <ScalarProperty Name="docente_id" ColumnName="docente_id" />
+                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+                <ScalarProperty Name="horario_id" ColumnName="horario_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_nota">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.tipo_nota">
+              <MappingFragment StoreEntitySet="tipo_nota">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_usuario">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.tipo_usuario">
+              <MappingFragment StoreEntitySet="tipo_usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="sistemaacademicobdModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="contrasenia" ColumnName="contrasenia" />
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
